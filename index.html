@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Laptop Battery Monitor</title>
+    <link rel="stylesheet" href="style.css">
+    
+</head>
+<body>
+    <div class="app-shell">
+        <header class="topbar">
+            <div class="brand">
+                <div class="brand-icon">🔋</div>
+                <div>
+                    <h1>Dashbord laptop batterij</h1>
+                    <p>Stel onder bij "Laaddrempels" wanneer je een melding wilt ontvangen </p>
+                </div>
+            </div>
+            <div class="connection" id="connection">
+                <span class="dot"></span>
+                <span>Verbinden...</span>
+            </div>
+        </header>
+
+        <main class="dashboard">
+            <section class="card battery-card">
+                <div class="section-heading">
+                    <div>
+                        <span class="eyebrow">BATTERIJSTATUS</span>
+                    </div>
+                    <div class="plugged" id="plugged">Controle...</div>
+                </div>
+
+                <div class="gauge">
+                    <svg viewBox="0 0 420 240" aria-label="Batterijpercentage">
+                        <defs>
+                            <linearGradient id="batteryGradient" x1="0%" y1="0%" x2="100%" y2="0%">
+                                <stop offset="0%" stop-color="#ef4444"/>
+                                <stop offset="50%" stop-color="#FFFF00"/>
+                                <stop offset="100%" stop-color="#22c55e"/>
+                            </linearGradient>
+                        </defs>
+
+                        <!-- Achtergrondboog-->
+                        <path class="gauge-background"
+                              fill="none"
+                              d="M 45 205 A 165 165 0 0 1 375 205"/>
+                        
+                        <!-- Actieve statusboog-->
+                        <path id="gauge-progress"
+                              class="gauge-progress"
+                              fill="none"
+                              d="M 45 205 A 165 165 0 0 1 375 205"/>
+
+                        <text x="210" y="157" text-anchor="middle"
+                              class="gauge-value" id="percentage">--%</text>
+
+                        <text x="210" y="185" text-anchor="middle"
+                              class="gauge-label">batterij</text>
+
+                    </svg>
+                </div>
+
+                <div class="status-pill" id="batteryStatus">Status wordt geladen...</div>
+            </section>
+
+            <section class="card settings-card">
+                <div class="section-heading">
+                    <div>
+                        <h2>Laaddrempels</h2>
+                    </div>
+                </div>
+
+                    <div class="setting">
+                        <div class="setting-top">
+                            <div>
+                                <h3>Meldingdrempel</h3>
+                                <p>Ontvang een melding wanneer de batterij volgens de ingestelde drempel bijna vol is.</p>
+                            </div>
+                        </div>
+                    <input id="warningSlider" type="range" min="50" max="90" value="70">
+                    <div class=" range-labels">
+                        <span>50%</span>
+                        <span class="current-value-box" id="warningValue">70%</span>
+                        <span>90%</span>
+                    </div>
+                </div>
+
+                <div class="setting">
+                    <div class="setting-top">
+                        <div>
+                            <h3>Laadlimiet</h3>
+                            <p>Ontvang een melding wanneer de batterij volgens de ingestelde drempel vol is.</p>
+                        </div>
+                    </div>
+                    <input id="limitSlider" type="range" min="70" max="100" value="85">
+                    <div class="range-labels">
+                        <span>70%</span>
+                        <span class="current-value-box" id="limitValue">85%</span>
+                        <span>100%</span>
+                    </div>
+                </div>
+
+                <div class="setting">
+                    <div class="setting-top">
+                        <div>
+                            <h3>Lage batterij</h3>
+                            <p>Ontvang een melding wanneer de batterij bijna leeg is.</p>
+                        </div>
+                    </div>
+                    <input id="lowSlider" type="range" min="10" max="100" value="55">
+                    <div class="range-labels">
+                        <span>10%</span>
+                        <span class="current-value-box" id="lowValue">55%</span>
+                        <span>100%</span>
+                </div>
+
+                <div class="hint" id="settingsHint">
+                    De 'Meldingdrempel' moet lager zijn dan de 'Laadlimiet'.
+                </div>
+            </section>
+        </main>
+    </div>
+    <script src="app.js" defer></script>
+    <details class="settings-widget">
+        <summary class="settings-widget-summary">⚙️ Instellingen</summary>
+        <div class="settings-widget-content">
+            <div class="setting">
+                <label for="notificationsCheckbox">Meldingen ontvangen</label>
+                <input type="checkbox" id="notificationsCheckbox">
+            </div>
+    </details>
+
+</body>
+</html>
