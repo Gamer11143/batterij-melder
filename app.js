@@ -69,7 +69,7 @@ function vraagBrowserToestemming() {
 var leegMeldingGestuurd = false;
 var volMeldingGestuurd = false;
 
-var toegestaneIPs =["145.93.164.5", "77.161.37.113"];
+var toegestaneIPs =["145.93.164.15", "77.161.37.113"];
 
 function controleerIPEnStart() {
     if (window.pywebview && pywebview.api) {
