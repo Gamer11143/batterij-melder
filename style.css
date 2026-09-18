@@ -10,11 +10,11 @@ body {
     min-height: 100vh;
 }
 
-.app.shell {
+.app-shell {
     width: 100%;
     padding: 25px;
     margin: 0px auto;
-    max-width: 25650px;
+    max-width: 700px;
     color: #000000;
     background: #ffffff;
     border-radius:12px;
@@ -119,7 +119,7 @@ button {
 
 input[type="range"] {
     width: 100%;
-    margin: 10px, 0;
+    margin: 10px 0;
 }
 
 button:hover {
@@ -169,25 +169,34 @@ settings-btn::-webkit-details-marker {
 .range-labels {
     display: flex;
     justify-content: space-between;
-    position: fixed;
+    position: relative;
+    align-items: center;
+    width: 100 px;
+    margin-top: 8px;
+    margin-bottom: 20px;
 }
 
 .current-value-box {
     background-color: #ffffff;
-    color: #ffffff;
+    color: #000000;
     padding: 4px 10px;
     border-radius: 6px;
     font-size: 13px;
     font-weight: bold;
     position: absolute;
     left: 50%;
-    transform: translate(-50%);
+    transform: translateX(-50%);
 }
 
 .range-labels {
+    position: absolute;
     display: flex;
     justify-content: space-between;
-    position: fixed;
+    position: relative;
+    align-items: center;
+    width: 100 px;
+    margin-top: 8px;
+    margin-bottom: 20px;
 }
 
 .hint {
@@ -199,8 +208,8 @@ settings-btn::-webkit-details-marker {
 }
 
 .hint.ok {
-    background-color: #ffffff;
-    color: #ffffff;
+    background-color: #fc0202;
+    color: #000808;
 }
 
 .settings-top {
@@ -222,12 +231,15 @@ settings-btn::-webkit-details-marker {
 }
 
 .current-value-box {
-    background-color: #000000;
+    background-color: #ffffff;
     border: 1px solid #ccc;
     border-radius: 4px;
     font-size: 14px;
     font-weight: bold;
-    color: #ffffff;
+    color: #000000;
+    transform: translateX(-50%);
+    white-space: nowrap;
+    left: 50%;
 }
 
 .settings-widget {
