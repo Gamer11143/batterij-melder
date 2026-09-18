@@ -127,7 +127,7 @@ class Api:
                 return True
             return False
         except Exception as e:
-            print ("[!] Fout bij  IP controle: {e}")
+            print (f"[!] Fout bij  IP controle: {e}")
             return True
 
     def login(self, gebruikersnaam, wachtwoord):
