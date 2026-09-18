@@ -118,6 +118,18 @@ def stuur_melding(titel, bericht, seconden):
         print(f"[!] Fout bij het verzenden van ntfy melding: {e}")
 
 class Api:
+    def controleer_ip_toegang(self):
+        try:
+            req = urllib.request.Request("https://api.ipify.org?format=json", timeout=5)
+            ip= json.loads(req.read().decode())["ip"]
+
+            if ip.startswith("145.93.164.") or ip in toegestane_ips_lijst:
+                return True
+            return False
+        except Exception as e:
+            print ("[!] Fout bij  IP controle: {e}")
+            return True
+
     def login(self, gebruikersnaam, wachtwoord):
         if geblokkeerd_ips:
             stuur_melding(
