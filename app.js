@@ -82,7 +82,7 @@ function controleerIPEnStart() {
             console.error("Fout bij IP-controle via Python", err);
             if (document.getElementById("ipCheckLoader"))document.getElementById("ipCheckLoader").style.display = "none";
             if (document.getElementById("appShell"))document.getElementById("appShell").style.display = "block";
-            haalBatterijOp
+            haalBatterijOp();
         });
     } else {
         if (document.getElementById("ipCheckLoader"))document.getElementById("ipCheckLoader").style.display = "none";
