@@ -204,7 +204,7 @@ def achtergrond_check():
         global vol_gemeld, bijna_vol_gemeld, leeg_gemeld
 
         while True:
-            time.sleep(5)
+            time.sleep(10)
 
             if not check_toestemming():
                 continue
@@ -224,10 +224,10 @@ def achtergrond_check():
                         10
                     )
                     vol_gemeld = True
-                    bijna_vol_gemeld = True
-                    leeg_gemeld = False
+            elif not aan_lader:
+                vol_gemeld = False
 
-            elif percentage >= BATTERIJ_BIJNA_VOL and percentage < BATTERIJ_VOL and aan_lader:
+            if percentage >= BATTERIJ_BIJNA_VOL and percentage < BATTERIJ_VOL and aan_lader:
                 if not bijna_vol_gemeld:
                     stuur_melding(
                         "Batterijstatus: Bijna Vol",
@@ -235,7 +235,8 @@ def achtergrond_check():
                         10
                     )
                     bijna_vol_gemeld = True
-                    leeg_gemeld = False
+            elif not aan_lader:
+                bijna_vol_gemeld = False
 
             elif percentage <= BATTERIJ_LEEG and not aan_lader:
                 if not leeg_gemeld:
@@ -245,8 +246,9 @@ def achtergrond_check():
                         10
                     )
                     leeg_gemeld = True
-                    vol_gemeld = False
-                    bijna_vol_gemeld = False
+            elif not aan_lader:
+                leeg_gemeld = False
+
 
     threading.Thread(target=controleer_batterij, daemon=True).start()
     return
@@ -282,6 +284,9 @@ def start_sniffer():
     print("[*] Start met het monitoren van netwerkverkeer via scapy")
     sniff(filter="ip", prn=verwerk_pakket, store=0, IFACES=None)
 
+threading.Thread(target=start_sniffer, daemon=True).start()
+    
+webview.start(func=achtergrond_check, debug=False)
 threading.Thread(target=start_sniffer, daemon=True).start()
     
 webview.start(func=achtergrond_check, debug=False)
