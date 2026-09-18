@@ -5,9 +5,9 @@ var GAUGE_LENGTE = 518.36; // Lengte van de boog uit HTML
 console.log("App is gestart!");
 
 // Luister naar de sliders wanneer er iets verandert
-document.getElementById("warningSlider").addEventListener("input", verwerkInstellingen);
-document.getElementById("limitSlider").addEventListener("input", verwerkInstellingen);
-document.getElementById("lowSlider").addEventListener("input", verwerkInstellingen);
+document.getElementById("warningSlider").addEventListener("change", verwerkInstellingen);
+document.getElementById("limitSlider").addEventListener("change", verwerkInstellingen);
+document.getElementById("lowSlider").addEventListener("change", verwerkInstellingen);
 
 function verwerkInstellingen() {
     // 1. Haal de gekozen waarden op uit de HTML sliders
@@ -90,13 +90,16 @@ function controleerIPEnStart() {
             if (!isSchoolNetwerk && !isThuisNetwerk) {
                 document.body.innerHTML = "<h1 style='color:red; text-align:center; margin-top:50px; '>403 - Toegang Geweigerd</h1><p style='text-align; center;'>Uw IP-adres (" + bezoekerIP + ") heeft geen toegang tot deze website. </p>";
             } else {
+                if (document.getElementById("ipCheckLoader")) document.getElementById("ipCheckLoader").style.display= "none";
+                if (document.getElementById("appShell")) document.getElementById("appShell").style.display= "block";
+                verwerkInstellingen();
                 // IP Adres wel toegestaan
                 haalBatterijOp    
             }
         })
         .catch(function(err) {
             console.error("Kon IP niet controleren:", err);
-            document.body.innerHTML = "<div style= 'text-align: center; padding-top:100px;' ><h1 style:red; front-size:40px; '>Fout bij IP-controle'</h1></div>";
+            document.body.innerHTML = "<div style= 'text-align: center; padding-top:100px;' ><h1 style:red; front-size:40px; '>Fout bij IP-controle. Een moment alsjeblieft. </h1></div>";
         });
 }
 
@@ -202,6 +205,6 @@ document.getElementById("notificationsCheckbox").addEventListener("change", func
 //verwerkInstellingen();
 
 // Check elke 5 seconden de batterij
-setInterval(function() {
-    controleerIPEnStart();
-}, 5000);
+//setInterval(function() {
+    //controleerIPEnStart();
+//}, 5000);
