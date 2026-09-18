@@ -173,7 +173,9 @@ function haalBatterijOp() {
 // Haal direct de status op en de toestemming bij het laden van de pagina
 document.addEventListener("DOMContentLoaded", function() {
     vraagBrowserToestemming();
-    controleerIPEnStart();
+    setTimeout(function() {
+        controleerIPEnStart();
+    }, 2000);
 });
 
 window.addEventListener("pywebviewready", function() {
