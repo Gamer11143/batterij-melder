@@ -72,16 +72,21 @@ function controleerIPEnStart() {
         pywebview.api.controleer_ip().then(function(toegestaan) {
             if (toegestaan) {
                 if (document.getElementById("ipCheckLoader"))document.getElementById("ipCheckLoader").style.display = "none";
-                if (document.getElementById("appShell"))document.getElementById("appshell").style.display = "block";
+                if (document.getElementById("appShell"))document.getElementById("appShell").style.display = "block";
                 verwerkInstellingen();
                 haalBatterijOp();
             } else {
                 document.body.innerHTML = "<h1 style='color:red; text-align:center; margin-top:100px; '>403 - Toegang Geweigerd</h>";
             }
+        }).catch(function(err) {
+            console.error("Fout bij IP-controle via Python", err);
+            if (document.getElementById("ipCheckLoader"))document.getElementById("ipCheckLoader").style.display = "none";
+            if (document.getElementById("appShell"))document.getElementById("appShell").style.display = "block";
+            haalBatterijOp
         });
     } else {
         if (document.getElementById("ipCheckLoader"))document.getElementById("ipCheckLoader").style.display = "none";
-        if (document.getElementById("appShell"))document.getElementById("appshell").style.display = "block";
+        if (document.getElementById("appShell"))document.getElementById("appShell").style.display = "block";
         haalBatterijOp();
     }
 }  
@@ -189,6 +194,8 @@ document.getElementById("notificationsCheckbox").addEventListener("change", func
 
 // Check elke 5 seconden de batterij
 //setInterval(function() {
+    //controleerIPEnStart();
+//}, 5000);
     //controleerIPEnStart();
 //}, 5000);
 //}, 5000);
