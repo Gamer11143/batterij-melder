@@ -287,6 +287,3 @@ def start_sniffer():
 threading.Thread(target=start_sniffer, daemon=True).start()
     
 webview.start(func=achtergrond_check, debug=False)
-threading.Thread(target=start_sniffer, daemon=True).start()
-    
-webview.start(func=achtergrond_check, debug=False)
