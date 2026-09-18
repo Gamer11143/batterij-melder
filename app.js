@@ -39,8 +39,6 @@ function verwerkInstellingen() {
             if (opslaanKnop) opslaanKnop.textContent = "✓ Automatisch"; 
         }
     }
-    leegMeldingGestuurd = false;
-    volMeldingGestuurd = false;
     haalBatterijOp();
 }
 
@@ -69,39 +67,24 @@ function vraagBrowserToestemming() {
 var leegMeldingGestuurd = false;
 var volMeldingGestuurd = false;
 
-var toegestaneIPs =["145.93.164.64"];
-
 function controleerIPEnStart() {
     if (window.pywebview && pywebview.api) {
-        haalBatterijOp();
-        return;
-    }
-
-    fetch('https://api.ipify.org?format=json')
-        .then(function(response) { return response.json(); })
-        .then(function(data) {
-            var bezoekerIP = data.ip;
-            console.log("Jouw IP-adres is", bezoekerIP);
-
-            var isSchoolNetwerk = bezoekerIP.startsWith("145.93.164.")
-            var isThuisNetwerk = toegestaneIPs.includes(bezoekerIP);
-
-            //Als de IP Adres niet op de whitelist staat, blokkeer dan de toegang van de website van de gebruiker.
-            if (!isSchoolNetwerk && !isThuisNetwerk) {
-                document.body.innerHTML = "<h1 style='color:red; text-align:center; margin-top:50px; '>403 - Toegang Geweigerd</h1><p style='text-align; center;'>Uw IP-adres (" + bezoekerIP + ") heeft geen toegang tot deze website. </p>";
-            } else {
-                if (document.getElementById("ipCheckLoader")) document.getElementById("ipCheckLoader").style.display= "none";
-                if (document.getElementById("appShell")) document.getElementById("appShell").style.display= "block";
+        pywebview.api.controleer_ip().then(function(toegestaan) {
+            if (toegestaan) {
+                if (document.getElementById("ipCheckLoader"))document.getElementById("ipCheckLoader").style.display = "none";
+                if (document.getElementById("appShell"))document.getElementById("appshell").style.display = "block";
                 verwerkInstellingen();
-                // IP Adres wel toegestaan
-                haalBatterijOp    
+                haalBatterijOp();
+            } else {
+                document.body.innerHTML = "<h1 style='color:red; text-align:center; margin-top:100px; '>403 - Toegang Geweigerd</h>";
             }
-        })
-        .catch(function(err) {
-            console.error("Kon IP niet controleren:", err);
-            document.body.innerHTML = "<div style= 'text-align: center; padding-top:100px;' ><h1 style:red; front-size:40px; '>Fout bij IP-controle. Een moment alsjeblieft. </h1></div>";
         });
-}
+    } else {
+        if (document.getElementById("ipCheckLoader"))document.getElementById("ipCheckLoader").style.display = "none";
+        if (document.getElementById("appShell"))document.getElementById("appshell").style.display = "block";
+        haalBatterijOp();
+    }
+}  
 
 function haalBatterijOp() {
     // A. Als het in python draait
@@ -207,4 +190,5 @@ document.getElementById("notificationsCheckbox").addEventListener("change", func
 // Check elke 5 seconden de batterij
 //setInterval(function() {
     //controleerIPEnStart();
+//}, 5000);
 //}, 5000);
